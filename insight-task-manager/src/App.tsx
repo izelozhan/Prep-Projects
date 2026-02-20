@@ -1,10 +1,11 @@
 import AppLayout from "./app/AppLayout";
+import TaskList from "./features/tasks/TaskList";
 
 function App() {
 
   return (
     <AppLayout>
-      <p>Welcome to the Insight Task Manager!</p>
+      <TaskList />
     </AppLayout>  
   )
 }
