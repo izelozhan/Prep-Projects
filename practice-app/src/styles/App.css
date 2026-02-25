@@ -1,0 +1,26 @@
+
+.cat-card {
+  border: 1px solid black;
+  /* padding: 20px; */
+  margin-right: 20px;
+  margin-top: 20px;
+}
+
+#card-container {
+  display: flex;
+  flex-wrap: wrap;
+  border: 2px solid rgb(134, 122, 122);
+  padding: 30px;
+}
+
+.cat-image {
+  width: 160px;
+  height: 160px;
+}
+#form-container {
+ 
+  border: 2px solid rgb(134, 122, 122);
+  padding: 30px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
