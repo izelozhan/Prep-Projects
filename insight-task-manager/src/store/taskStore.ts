@@ -1,8 +1,24 @@
 import type { Task } from "../types/task";
 
+type Listeners = () => void;
+
 class TaskStore {
   private tasks = new Map<String, Task>();
   private tags = new Set<String>();
+  private listeners = new Set<Listeners>();
+ 
+
+  constructor() {
+    // seed data
+    this.tasks.set("1", {
+      id: "1",
+      title: "Learn Map and Set",
+      completed: false,
+      priority: "high",
+      tags: ["javascript"],
+      createdAt: Date.now(),
+    });
+  }
 
   getAllTasks(): Task[] {
     return Array.from(this.tasks.values());
@@ -17,43 +33,48 @@ class TaskStore {
     task.tags.forEach((tag) => this.tags.add(tag));
   }
 
-  //partial means optional, take all the props of this object and make them optional, so when can only take specific fields we want to change, and ts not screaming us 
+  //partial means optional, take all the props of this object and make them optional, so when can only take specific fields we want to change, and ts not screaming us
 
-  updateTask(id: String, updates: Partial<Task>){
+  updateTask(id: String, updates: Partial<Task>) {
     const existing = this.tasks.get(id);
-    if(!existing) return; 
+    if (!existing) return;
 
-    const updated = {...existing, ...updates};
+    const updated = { ...existing, ...updates };
     this.tasks.set(id, updated);
 
     updated.tags?.forEach((tag) => this.tags.add(tag));
   }
 
-  deleteTask(id: String){
+  deleteTask(id: String) {
     this.tasks.delete(id);
   }
 
   getAllTags(): String[] {
     return Array.from(this.tags);
   }
+
+  subscribe = (listener: Listeners) => {
+    this.listeners.add(listener);
+    return () => this.listeners.delete(listener);
+  };
 }
 
 export const taskStore = new TaskStore();
 
-taskStore.addTask({
-  id: "1",
-  title: "Learn Map and Set",
-  completed: false,
-  priority: "high",
-  tags: ["javascript", "cs"],
-  createdAt: Date.now(),
-});
+// taskStore.addTask({
+//   id: "1",
+//   title: "Learn Map and Set",
+//   completed: false,
+//   priority: "high",
+//   tags: ["javascript", "cs"],
+//   createdAt: Date.now(),
+// });
 
-taskStore.addTask({
-  id: "2",
-  title: "Build analytics",
-  completed: false,
-  priority: "medium",
-  tags: ["react"],
-  createdAt: Date.now(),
-});
+// taskStore.addTask({
+//   id: "2",
+//   title: "Build analytics",
+//   completed: false,
+//   priority: "medium",
+//   tags: ["react"],
+//   createdAt: Date.now(),
+// });
