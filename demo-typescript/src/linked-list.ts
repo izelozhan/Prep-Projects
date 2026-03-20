@@ -43,7 +43,6 @@ const numberList = new LinkedList<number>();
 numberList.add(10);
 numberList.add(2);
 numberList.add(4);
-numberList.add(3);
 
 numberList.print();
 const nameList = new LinkedList<string>();
